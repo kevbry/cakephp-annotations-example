@@ -1,0 +1,3 @@
+[submodule "app/Plugin/Annotations"]
+	path = app/Plugin/Annotations
+	url = git@github.com:kevbry/cakephp-annotations.git
