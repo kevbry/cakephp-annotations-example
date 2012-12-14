@@ -179,3 +179,8 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+
+CakePlugin::load('Annotations'); //Loads a single plugin
+App::build(array('Annotation', '%s' . 'Annotation' . DS));
+

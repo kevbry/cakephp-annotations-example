@@ -18,7 +18,9 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
+App::uses('TestAnnotation', 'Annotation');
+App::uses('SomethingAnnotation', 'Annotation');
+App::uses('IDToDocumentAnnotation', 'Annotation');
 App::uses('AppController', 'Controller');
 
 /**
@@ -37,6 +39,10 @@ class PagesController extends AppController {
  * @var string
  */
 	public $name = 'Pages';
+	
+	public $components = array(
+		'Annotations.ControllerAnnotation'=>array()
+	);
 
 /**
  * This controller does not use a model
@@ -71,5 +77,14 @@ class PagesController extends AppController {
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
 		$this->render(implode('/', $path));
+	}
+	
+	
+	/**
+	 * @TestAnnotation(value='TestAnnotationValue', stage={'initialize', 'shutdown'})
+	 * @SomethingAnnotation('SomethingAnnotationValue');
+	 */
+	public function test_annotate($id=null)
+	{
 	}
 }
