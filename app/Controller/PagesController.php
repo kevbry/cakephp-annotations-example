@@ -21,7 +21,7 @@
 App::uses('TestAnnotation', 'Annotation');
 App::uses('SomethingAnnotation', 'Annotation');
 App::uses('IDToDocumentAnnotation', 'Annotation');
-App::uses('ParamConverterAnnotation', 'Annotation');
+App::uses('ParamConverterAnnotation', 'Annotations.Annotation');
 App::uses('AppController', 'Controller');
 
 /**
