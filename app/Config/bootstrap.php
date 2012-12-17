@@ -182,5 +182,3 @@ CakeLog::config('error', array(
 
 
 CakePlugin::load('Annotations'); //Loads a single plugin
-App::build(array('Annotation', '%s' . 'Annotation' . DS));
-

@@ -21,6 +21,7 @@
 App::uses('TestAnnotation', 'Annotation');
 App::uses('SomethingAnnotation', 'Annotation');
 App::uses('IDToDocumentAnnotation', 'Annotation');
+App::uses('ParamConverterAnnotation', 'Annotation');
 App::uses('AppController', 'Controller');
 
 /**
@@ -41,8 +42,12 @@ class PagesController extends AppController {
 	public $name = 'Pages';
 	
 	public $components = array(
-		'Annotations.ControllerAnnotation'=>array()
+		'Annotations.ControllerAnnotation'=>array('disable'=>false) //set to true to disable annotations
 	);
+
+	//Set to true to disable annotations
+	public $disable_annotations=false;
+	public $Document;
 
 /**
  * This controller does not use a model
@@ -51,40 +56,36 @@ class PagesController extends AppController {
  */
 	public $uses = array();
 
-/**
- * Displays a view
- *
- * @param mixed What page to display
- * @return void
- */
-	public function display() {
-		$path = func_get_args();
-
-		$count = count($path);
-		if (!$count) {
-			$this->redirect('/');
-		}
-		$page = $subpage = $title_for_layout = null;
-
-		if (!empty($path[0])) {
-			$page = $path[0];
-		}
-		if (!empty($path[1])) {
-			$subpage = $path[1];
-		}
-		if (!empty($path[$count - 1])) {
-			$title_for_layout = Inflector::humanize($path[$count - 1]);
-		}
-		$this->set(compact('page', 'subpage', 'title_for_layout'));
-		$this->render(implode('/', $path));
+	public function __construct($request = null, $response = null)
+	{
+		parent::__construct($request, $response);
+		$this->Document = new TestDocument();
 	}
 	
 	
 	/**
 	 * @TestAnnotation(value='TestAnnotationValue', stage={'initialize', 'shutdown'})
 	 * @SomethingAnnotation('SomethingAnnotationValue');
+	 * @ParamConverterAnnotation(parameter='id', class='Document');
+	 * @ParamConverterAnnotation(parameter='valvar', class='Document');
 	 */
-	public function test_annotate($id=null)
+	public function test_annotate($id=2, $valvar=9)
 	{
+		debug($id);
+		debug($valvar);
+	}
+}
+
+
+class TestDocument
+{
+	public function __construct()
+	{
+		
+	}
+	
+	public function findById($id)
+	{
+		return array("Document"=>array("id"=>$id));
 	}
 }
