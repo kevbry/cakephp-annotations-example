@@ -2,17 +2,16 @@
 App::uses('ControllerActionAnnotation', 'Annotation');
 
 /**
- * Example annotation
+ * Example Annotation
  *
  * @author kevbry
  */
-class TestAnnotation extends ControllerActionAnnotation
+class AnotherAnnotation extends ControllerActionAnnotation
 {
 	public function invoke(Controller $controller)
 	{
-		debug("TestAnnotations " . $this->value);
+		debug("AnotherAnnotation " . $this->value);
 	}
-	
 }
 
 ?>

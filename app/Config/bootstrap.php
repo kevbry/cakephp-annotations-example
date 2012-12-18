@@ -181,4 +181,4 @@ CakeLog::config('error', array(
 ));
 
 
-CakePlugin::load('Annotations'); //Loads a single plugin
+CakePlugin::load('Annotations', array('bootstrap'=>true)); //Loads a single plugin

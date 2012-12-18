@@ -1,5 +1,5 @@
 <?php
-App::uses('ControllerActionAnnotation', 'Annotations.Annotation');
+App::uses('ControllerActionAnnotation', 'Annotation');
 
 /**
  * Description of SomethingAnnotation

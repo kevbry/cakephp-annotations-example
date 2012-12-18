@@ -19,10 +19,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('TestAnnotation', 'Annotation');
-App::uses('SomethingAnnotation', 'Annotation');
+App::uses('AnotherAnnotation', 'Annotation');
 App::uses('IDToDocumentAnnotation', 'Annotation');
-App::uses('ParamConverterAnnotation', 'Annotations.Annotation');
+App::uses('ParamConverter', 'Annotations.Annotation');
 App::uses('AppController', 'Controller');
+App::uses('NamedParamsToArgument', 'Annotations.Annotation');
+App::uses('ControllerOptions', 'Annotations.Annotation');
 
 /**
  * Static content controller
@@ -60,19 +62,47 @@ class PagesController extends AppController {
 	{
 		parent::__construct($request, $response);
 		$this->Document = new TestDocument();
+		$this->Widget = new TestWidget();
 	}
 	
 	
 	/**
-	 * @TestAnnotation(value='TestAnnotationValue', stage={'initialize', 'shutdown'})
-	 * @SomethingAnnotation('SomethingAnnotationValue');
-	 * @ParamConverterAnnotation(parameter='id', class='Document');
-	 * @ParamConverterAnnotation(parameter='valvar', class='Document');
+	 * @TestAnnotation(value=' runs at both initialize and shutdown', stage={'initialize', 'shutdown'})
+	 * @AnotherAnnotation('AnotherAnnotationValue')
+	 * @ParamConverter(parameter='id', class='Document')
+	 * @ParamConverter(parameter='value', class='Widget', method='getSomeValueById')
+	 * @ParamConverter(parameter='empty', class='Widget', method='getSomeValueById', require_value=false)
 	 */
-	public function test_annotate($id=2, $valvar=9)
+	public function test_annotate($empty, $id=2, $value=9)
+	{
+		debug($id);
+		debug($value);
+		debug($empty);
+	}
+	
+	/**
+	 * @NamedParamsToArgument
+	 * @ControllerOptions({autoRender=false})
+	 * 
+	 * //Request with a URL like /pages/test_annotate_named/valvar:12/id:21
+	 */
+	public function test_annotate_named($id=2, $valvar=9)
 	{
 		debug($id);
 		debug($valvar);
+	}
+}
+
+class TestWidget
+{
+	public function __construct()
+	{
+		
+	}
+	
+	public function getSomeValueById($id)
+	{
+		return array("Some Value"=>$id);
 	}
 }
 
