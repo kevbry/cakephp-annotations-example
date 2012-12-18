@@ -11,8 +11,8 @@ There are three example annotations in the app/Annotations directory:
 - TestAnnotation/SomethingAnnotation, which print their name and the value argument when invoked.
 - IDToDocumentAnnotation, an example of how to have a find run on a model when the annotation is invoked.
 
-The PagesController at app/PagesController, with a single annotated method showing:
-- Importing local and plugin annotations (`App::uses('TestAnnotation', 'Annotation')`, `App::uses('ParamConverterAnnotation', 'Annotations.Annotation')` )
-- Using a basic annotation ( `@SomethingAnnotation('SomethingAnnotationValue')` )
+The PagesController at app/Controller/PagesController, with a single annotated method showing:
+- Importing local and plugin annotations (`App::uses('TestAnnotation', 'Annotation')`, `App::uses('ParamConverter', 'Annotation')` )
+- Using a basic annotation ( `@AnotherAnnotation('AnotherAnnotationValue')` )
 - Running an annotation at specific callback points ( `@TestAnnotation(value='TestAnnotationValue', stage={'initialize', 'shutdown'})` )
-- Using the ParamConverterAnnotation for two different controller parameters
+- Using the ParamConverter for two different controller parameters
